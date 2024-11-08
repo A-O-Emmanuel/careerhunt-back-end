@@ -17,12 +17,18 @@ const userSchema = new mongoose.Schema({
     email: {
         type: String,
         required: true,
+        unique: true
     },
-    password: Number
+    password: {
+        type: String,
+        required: true,
+        minlength: 5,
+        maxlength: 1024
+    }
+
 })
 
 const User = mongoose.model('User', userSchema)
 
 
-module.exports.mongoose;
-module.exports.User;
+exports.User = User;
