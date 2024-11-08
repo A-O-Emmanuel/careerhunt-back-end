@@ -1,11 +1,10 @@
+const _ = require('lodash');
 const {User} = require('../models/user');
 const express = require('express');
 const router = express.Router()
 
 
 router.post('/', async (req, res) => {
-    // const { error } = validateUser(req.body);
-    // if (error) return res.status(400).send(error.details[0].message);
 
     let user = await User.findOne({email: req.body.email});
     if (user) return res.status(400).send('User already registered.');
@@ -18,16 +17,11 @@ router.post('/', async (req, res) => {
 
     if (req.body.password !== req.body.confirm) return res.send('passwords must match')
 
-    user = new User ({
-        firstName: req.body.firstName,
-        lastName: req.body.lastName,
-        email: req.body.email,
-        password: req.body.password
-    })
+    user = new User (_.pick(req.body, ['firstName', 'lastName', 'email', 'password']));
 
     await user.save();
 
-    res.send(user);
-})
+    res.send(_.pick(user, ['_id', 'firstName', 'lastName', 'email']));
+});
 
 module.exports = router;
