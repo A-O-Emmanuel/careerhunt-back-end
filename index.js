@@ -1,12 +1,12 @@
-const {mongoose} = require('./models/user')
-const siginIn = require('./routes/signIn')
-const regiser = require('./routes/resgister')
+const env = require('dotenv');
+const siginIn = require('./routes/signIn');
+const regiser = require('./routes/resgister');
 const deleteUser = require('./routes/delete');
 const cors = require('cors')
 
 const express = require('express');
-
 const app = express();
+env.config()
 
 app.use(express.json())
 app.use(express.urlencoded({extended: true}))
