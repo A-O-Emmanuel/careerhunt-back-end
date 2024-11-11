@@ -1,3 +1,4 @@
+const jwt = require('jsonwebtoken')
 const mongoose = require('mongoose');
 
 mongoose.connect('mongodb://localhost/careerHuntUser')
@@ -27,6 +28,11 @@ const userSchema = new mongoose.Schema({
     }
 
 })
+
+userSchema.methods.generateAuthToken = function() {
+    const token = jwt.sign({_id: this.id}, process.env.JWTPRIVATEKEY);
+    return token
+}
 
 const User = mongoose.model('User', userSchema)
 
