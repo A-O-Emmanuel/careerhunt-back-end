@@ -21,7 +21,7 @@ app.get('/', (req, res) => {
 app.use('/signin', siginIn);
 app.use('/register', regiser);
 app.use('/delete', deleteUser);
-app.use('/savejob', savejob)
+app.use('/savejob', savejob);
 
 
 
