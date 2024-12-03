@@ -7,11 +7,11 @@ mongoose.connect('mongodb://localhost/careerHuntUser')
 
 
 const userSchema = new mongoose.Schema({
-    firstName: {
+    firstname: {
         type: String,
         required: true
     },
-    lastName: {
+    lastname: {
         type: String,
         required: true
     },
@@ -25,8 +25,8 @@ const userSchema = new mongoose.Schema({
         required: true,
         minlength: 5,
         maxlength: 1024
-    }
-
+    },
+    
 })
 
 
