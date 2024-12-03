@@ -6,6 +6,20 @@ mongoose.connect('mongodb://localhost/careerHuntUser')
     .catch((err) => console.log(err))
 
 
+const jobSchema = new mongoose.Schema({
+    jobTitle: String,
+    company: String,
+    jobLocation: String || Number, 
+    salaryMax: String || Number,
+    salaryMin: String || Number,
+    description: String,
+    contract: String,
+    applyLink: String
+})
+
+
+const Job = mongoose.model('Job', jobSchema )
+
 const userSchema = new mongoose.Schema({
     firstname: {
         type: String,
@@ -26,7 +40,9 @@ const userSchema = new mongoose.Schema({
         minlength: 5,
         maxlength: 1024
     },
-    
+
+    jobs: [jobSchema]
+
 })
 
 
