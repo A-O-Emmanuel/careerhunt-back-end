@@ -1,10 +1,11 @@
 const auth = require('../middleware/auth')
+const {User} = require('../models/user');
+
 const express = require('express');
 const router = express.Router();
 
-
 router.post('/', auth,  async (req, res) => {
-    const jobInfo = {
+    try {const jobInfo = {
         jobTitle: req.body.jobTitle,
         company: req.body.compay,
         jobLocation: req.body.jobLocation,
@@ -14,7 +15,15 @@ router.post('/', auth,  async (req, res) => {
         contract: req.body.contract,
         applyLink: req.body.applyLink,
     }
-    res.send(jobInfo)
+    const user = await User.findById(req.user._id).select('-password');
+    if (user.jobs.id) return res.json(`You've saved this job already..`)
+    user.jobs.push(jobInfo)
+    user.save()
+    res.json('job saved...')
+} catch(err) {
+    res.json(err)
+}
 })
+
 
 module.exports = router;
