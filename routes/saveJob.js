@@ -4,6 +4,8 @@ const {User} = require('../models/user');
 const express = require('express');
 const router = express.Router();
 
+
+
 router.post('/', auth,  async (req, res) => {
     try {const jobInfo = {
         jobTitle: req.body.jobTitle,
@@ -16,7 +18,6 @@ router.post('/', auth,  async (req, res) => {
         applyLink: req.body.applyLink,
     }
     const user = await User.findById(req.user._id).select('-password');
-    if (user.jobs.id) return res.json(`You've saved this job already..`)
     user.jobs.push(jobInfo)
     user.save()
     res.json('job saved...')

@@ -3,6 +3,7 @@ const siginIn = require('./routes/signIn');
 const regiser = require('./routes/resgister');
 const deleteUser = require('./routes/delete');
 const savejob = require('./routes/saveJob')
+const savedjobs = require('./routes/savedJobs')
 const cors = require('cors')
 
 const express = require('express');
@@ -22,6 +23,7 @@ app.use('/signin', siginIn);
 app.use('/register', regiser);
 app.use('/delete', deleteUser);
 app.use('/savejob', savejob);
+app.use('/savedjobs', savedjobs);
 
 
 
