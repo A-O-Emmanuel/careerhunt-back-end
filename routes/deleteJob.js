@@ -1,14 +1,16 @@
 const auth = require('../middleware/auth')
 const {User} = require('../models/user');
-
 const express = require('express');
+
 const router = express.Router();
 
-
-router.get('/', auth, async (req, res) => {
+router.delete('/', auth, async (req, res) => {
+    const id = req.body.id;
     const user = await User.findById(req.user._id).select('-password');
-    const jobs = user.jobs
-    res.json(jobs)
+    const job = user.jobs.id(id)
+    const remove = delete(job)
+    user.save()
+    res.json(remove)   
 })
 
 module.exports = router;
