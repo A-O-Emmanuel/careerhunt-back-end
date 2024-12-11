@@ -5,12 +5,10 @@ const express = require('express');
 const router = express.Router();
 
 router.delete('/', auth, async (req, res) => {
-    const id = req.body.id;
     const user = await User.findById(req.user._id).select('-password');
-    const job = user.jobs.id(id)
-    const remove = delete(job)
+    const job = user.jobs.remove(req.body.id)
     user.save()
-    res.json(remove)   
+    res.json('Successfully removed')   
 })
 
 module.exports = router;
