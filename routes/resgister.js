@@ -13,22 +13,17 @@ router.get('/me', auth, async(req, res) => {
 router.post('/', async (req, res) => {
 
     let user = await User.findOne({email: req.body.email});
-    if (user) return res.status(400).send('User already registered.');
-    
-    if (req.body.firstname < 1) return res.send('firstname can not be empty')
+    if (user) return res.status(400).json('User already registered.');
 
-    if (req.body.lastname < 1) return res.send('lastname can not be empty')
-    
-    if (req.body.email.includes('@') === false) return res.send('Please enter a valid email address')
-
-    if (req.body.password !== req.body.confirm) return res.send('passwords must match')
+    if (req.body.password !== req.body.confirm) return res.status(422).json('Passwords must match')
     
     user = new User (_.pick(req.body, ['firstname', 'lastname', 'email', 'password']));
     const salt = await bcrypt.genSalt(10);
     user.password = await bcrypt.hash(user.password, salt);
     await user.save();
 
-    res.send(_.pick(user, ['_id', 'firstname', 'lastname', 'email']));
+    //res.send(_.pick(user, ['_id', 'firstname', 'lastname', 'email']));
+    res.status(201).json(`You've successfully registered, now please signin`)
 });
 
 module.exports = router;
