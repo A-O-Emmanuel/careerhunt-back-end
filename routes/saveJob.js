@@ -8,6 +8,7 @@ const router = express.Router();
 
 router.post('/', auth,  async (req, res) => {
     try {const jobInfo = {
+        jobId: req.body.jobId,
         jobTitle: req.body.jobTitle,
         company: req.body.company,
         jobLocation: req.body.jobLocation,
@@ -21,6 +22,7 @@ router.post('/', auth,  async (req, res) => {
     user.jobs.push(jobInfo)
     user.save()
     res.json('job saved...')
+
 } catch(err) {
     res.json(err)
 }

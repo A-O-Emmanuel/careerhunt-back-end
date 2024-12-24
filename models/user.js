@@ -7,6 +7,7 @@ mongoose.connect('mongodb://localhost/careerHuntUser')
 
 
 const jobSchema = new mongoose.Schema({
+    jobId: String,
     jobTitle: String,
     company: String,
     jobLocation: String || Number, 
