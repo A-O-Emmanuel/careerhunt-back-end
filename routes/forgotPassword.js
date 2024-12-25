@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.patch('/', async (req, res) => {
     let user = await User.findOne({email: req.body.email});
-    if (!user) return res.status(400).json({message:'Email is invalid.', id:'1'});
+    if (!user) return res.status(400).json({message:'Email is not registered.', id:'1'});
 
     if (req.body.newPassword !== req.body.confirm) return res.status(422).json({message:'Passwords must match', id:'2'})
 
@@ -15,7 +15,7 @@ router.patch('/', async (req, res) => {
     user.password = await bcrypt.hash(req.body.newPassword, salt)
     await user.save()
 
-    res.json({message:`You've successfully reset your password`});
+    res.status(200).json({message:`You've successfully reset your password`, id:'3'});
 
 })
 
