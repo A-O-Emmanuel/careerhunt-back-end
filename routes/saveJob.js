@@ -24,14 +24,12 @@ router.post('/', auth,  async (req, res) => {
 
     if (!user) return res.json('User not found')
 
-    //const findJob =  user.jobs.jobId.includes(jobInfo.jobId)
-  
     for (let i = 0; i < user.jobs.length; i++) {
         if (user.jobs[i].jobId == jobInfo.jobId) {
             return res.json('Job already saved')
         }
     }
-
+    
     user.jobs.push(jobInfo)
     user.save()
     res.json('job saved...')

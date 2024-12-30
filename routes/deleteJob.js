@@ -9,7 +9,7 @@ router.delete('/', auth, async (req, res) => {
     const user = await User.findById(req.user._id).select('-password');
         user.jobs.remove(req.body.id)
     user.save()
-    res.json('Successfully removed')   
+    res.json('job removed')   
 })
 
 module.exports = router;
