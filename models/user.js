@@ -1,7 +1,10 @@
 const jwt = require('jsonwebtoken')
+const env = require('dotenv')
 const mongoose = require('mongoose');
 
-mongoose.connect('mongodb://localhost/careerHuntUser')
+env.config()
+
+mongoose.connect(process.env.MONGODB)
     .then(() => console.log('Succesfully connected to database..'))
     .catch((err) => console.log(err))
 
@@ -17,9 +20,6 @@ const jobSchema = new mongoose.Schema({
     contract: String,
     applyLink: String
 })
-
-
-const Job = mongoose.model('Job', jobSchema )
 
 const userSchema = new mongoose.Schema({
     firstname: {
